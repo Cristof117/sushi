@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Vista por dentro del rollo">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a1f1c"/>
+      <stop offset="100%" style="stop-color:#1a1210"/>
+    </linearGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" style="stop-color:#3d9b6e;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#3d9b6e;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg2)"/>
+  <ellipse cx="200" cy="150" rx="150" ry="110" fill="url(#glow2)"/>
+  <!-- corte transversal -->
+  <circle cx="200" cy="150" r="115" fill="#f5ebe0" stroke="#3d9b6e" stroke-width="5"/>
+  <circle cx="200" cy="150" r="88" fill="#fff8f0"/>
+  <circle cx="200" cy="150" r="58" fill="#7dd3a8" opacity="0.5"/>
+  <circle cx="200" cy="150" r="38" fill="#3d9b6e" opacity="0.85"/>
+  <rect x="185" y="35" width="30" height="230" fill="#2a1f1c" opacity="0.15" transform="rotate(12 200 150)"/>
+  <!-- relleno -->
+  <ellipse cx="175" cy="140" rx="18" ry="12" fill="#e8b86d"/>
+  <ellipse cx="225" cy="165" rx="20" ry="14" fill="#d4654f"/>
+  <ellipse cx="200" cy="175" rx="16" ry="10" fill="#f5ebe0"/>
+  <text x="200" y="265" text-anchor="middle" fill="#7dd3a8" font-family="sans-serif" font-size="18" font-weight="bold">POR DENTRO</text>
+  <text x="200" y="288" text-anchor="middle" fill="#f5ebe0" font-family="sans-serif" font-size="12" opacity="0.7">Relleno · proteína y queso</text>
+</svg>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groshi Express — Menú</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="bg-pattern" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-icon" aria-hidden="true">🍜</span>
+      <div>
+        <span class="logo-main">Groshi Express</span>
+        <span class="logo-sub">Sushi Buffet</span>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <a href="#paquete">Paquete</a>
+      <a href="#rollos">Rollos</a>
+    </nav>
+  </header>
+
+  <main class="main-flow">
+    <section id="paquete" class="block-paquete">
+      <article class="paquete-card">
+        <div class="paquete-card__header">
+          <h2>Paquete Mix</h2>
+          <p class="price-tag">$204.00</p>
+        </div>
+        <div class="torn-frame">
+          <div class="torn-edge torn-edge--top"></div>
+          <img src="assets/paquete-mix.png" alt="Paquete Mix Groshi Express" class="paquete-img" />
+          <div class="torn-edge torn-edge--bottom"></div>
+        </div>
+        <ul class="paquete-list">
+          <li>1 rollo de sushi <strong>(10 pzas.)</strong></li>
+          <li>2 pzas. Kushiagues de queso</li>
+          <li>2 pzas. rodaja de plátano</li>
+          <li>2 rollos primavera</li>
+          <li>Arroz yakimeshi</li>
+          <li>Guiso del día</li>
+          <li class="paquete-list__bonus">Incluye agua del día (500 ml)</li>
+        </ul>
+        <p class="paquete-note">
+          El rollo incluye relleno y capa externa básicos.
+          <strong>Ingredientes premium por dentro o por fuera tienen costo extra.</strong>
+        </p>
+      </article>
+    </section>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>↓</span>
+      <p>Rollos 2×$170</p>
+    </div>
+
+    <section id="rollos" class="block-rollos">
+      <header class="rollos-intro">
+        <h2 class="rollos-title">Rollos <span>2×$170</span></h2>
+        <p class="rollos-promo-badge">Lleva 2 rollos por $170</p>
+        <p class="rollos-sub">Externo <strong>+$10–30</strong> · Relleno <strong>+$15–35</strong></p>
+      </header>
+
+      <div class="categoria-picker">
+        <p class="categoria-picker__label">Categoría <span class="opcional">(la elegida se muestra primero)</span></p>
+        <div id="categoria-chips" class="categoria-chips" role="tablist"></div>
+      </div>
+
+      <h3 class="menu-completo__titulo">Menú de rollos</h3>
+      <div id="menu-completo" class="menu-completo"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Groshi Express Sushi Buffet · Precios sujetos a cambio</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
