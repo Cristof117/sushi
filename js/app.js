@@ -70,6 +70,10 @@ MENU.forEach((cat) => {
 
 const chipsEl = document.getElementById("categoria-chips");
 const menuCompletoEl = document.getElementById("menu-completo");
+const lightbox = document.getElementById("foto-lightbox");
+const lightboxImg = lightbox?.querySelector(".foto-lightbox__img");
+const lightboxCaption = lightbox?.querySelector(".foto-lightbox__caption");
+const lightboxCerrar = lightbox?.querySelector(".foto-lightbox__cerrar");
 
 let categoriaPrioridad = null;
 let tarjetaActiva = null;
@@ -79,24 +83,27 @@ function crearDetalleHTML() {
   return `
     <div class="menu-item__detalle" hidden>
       <div class="detalle-rollo__row">
-        <div class="detalle-rollo__foto">
+        <div class="detalle-rollo__foto" role="button" tabindex="0" aria-label="Ver foto ampliada">
           <img class="detalle-rollo__img" alt="" hidden />
           <span class="detalle-rollo__foto-ph">Imagen</span>
+          <span class="detalle-rollo__foto-hint" aria-hidden="true">Toca para ampliar</span>
         </div>
-        <div class="anillo-wrap" aria-hidden="true">
-          <div class="anillo">
-            <div class="anillo__capa anillo__capa--arroz"></div>
-            <div class="anillo__capa anillo__capa--fuera"></div>
-            <div class="anillo__capa anillo__capa--dentro"></div>
+        <div class="detalle-rollo__bottom">
+          <div class="anillo-wrap" aria-hidden="true">
+            <div class="anillo">
+              <div class="anillo__capa anillo__capa--arroz"></div>
+              <div class="anillo__capa anillo__capa--fuera"></div>
+              <div class="anillo__capa anillo__capa--dentro"></div>
+            </div>
           </div>
-        </div>
-        <div class="detalle-rollo__info">
-          <div class="vista-tabs vista-tabs--mini" role="tablist">
-            <button type="button" class="vista-tab vista-tab--fuera active" data-vista="fuera">Fuera</button>
-            <button type="button" class="vista-tab vista-tab--dentro" data-vista="dentro">Dentro</button>
+          <div class="detalle-rollo__info">
+            <div class="vista-tabs vista-tabs--mini" role="tablist">
+              <button type="button" class="vista-tab vista-tab--fuera active" data-vista="fuera">Fuera</button>
+              <button type="button" class="vista-tab vista-tab--dentro" data-vista="dentro">Dentro</button>
+            </div>
+            <p class="ingredientes-box__titulo">Por fuera</p>
+            <p class="ingredientes-box__lista"></p>
           </div>
-          <p class="ingredientes-box__titulo">Por fuera</p>
-          <p class="ingredientes-box__lista"></p>
         </div>
       </div>
     </div>
@@ -153,6 +160,51 @@ function setPrioridad(categoria) {
   });
   ordenarCategorias(categoria);
 }
+
+function abrirLightbox(src, nombre) {
+  if (!lightbox || !src) return;
+  lightboxImg.src = src;
+  lightboxImg.alt = nombre;
+  lightboxCaption.textContent = nombre;
+  lightbox.hidden = false;
+  document.body.classList.add("lightbox-abierto");
+  lightboxCerrar.focus();
+}
+
+function cerrarLightbox() {
+  if (!lightbox) return;
+  lightbox.hidden = true;
+  lightboxImg.removeAttribute("src");
+  document.body.classList.remove("lightbox-abierto");
+}
+
+function wireFotoExpand(card, item) {
+  const foto = card.querySelector(".detalle-rollo__foto");
+  if (!foto || foto.dataset.wired) return;
+  foto.dataset.wired = "1";
+
+  const abrir = (e) => {
+    e.stopPropagation();
+    if (!item.foto) return;
+    abrirLightbox(item.foto, item.nombre);
+  };
+
+  foto.addEventListener("click", abrir);
+  foto.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      abrir(e);
+    }
+  });
+}
+
+lightbox?.addEventListener("click", (e) => {
+  if (e.target === lightbox) cerrarLightbox();
+});
+lightboxCerrar?.addEventListener("click", cerrarLightbox);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && lightbox && !lightbox.hidden) cerrarLightbox();
+});
 
 function setFotoEnTarjeta(card, item) {
   const img = card.querySelector(".detalle-rollo__img");
@@ -221,6 +273,7 @@ function toggleTarjeta(card, item) {
   card.classList.add("menu-item-card--open", "vista-fuera");
   detalle.hidden = false;
   setFotoEnTarjeta(card, item);
+  wireFotoExpand(card, item);
   playIntroAnim(card, item);
 
   card.querySelectorAll(".vista-tab").forEach((tab) => {
