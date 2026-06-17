@@ -45,6 +45,29 @@ const MENU = [
   ]},
 ];
 
+const FOTO_CARPETA = {
+  "Camarón": "CAMARON",
+  "Surimi": "SURIMI",
+  "Vegetales": "VEGETALES",
+  "Frutas": "FRUTALES",
+  "Combinados": "COMBINADOS",
+  "Res o Pollo": "FILETE RES",
+  "Salmón o Atún": "SALMON",
+  "Empanizados": "EMPANIZADOS",
+};
+
+function fotoDeRollo(categoria, nombre) {
+  const carpeta = FOTO_CARPETA[categoria];
+  const archivo = nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase() + ".png";
+  return `fotos/CATEGORIAS/${carpeta}/${archivo}`;
+}
+
+MENU.forEach((cat) => {
+  cat.items.forEach((item) => {
+    item.foto = fotoDeRollo(cat.categoria, item.nombre);
+  });
+});
+
 const chipsEl = document.getElementById("categoria-chips");
 const menuCompletoEl = document.getElementById("menu-completo");
 
