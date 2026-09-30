@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Groshi Express — Menú</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/menu-pdf.css" />
+</head>
+<body class="menu-doc">
+  <header class="menu-doc__header">
+    <span class="menu-doc__icon" aria-hidden="true">🍜</span>
+    <div>
+      <p class="menu-doc__brand">Groshi Express</p>
+      <p class="menu-doc__tagline">Sushi Buffet</p>
+    </div>
+  </header>
+
+  <section class="paquete">
+    <div class="paquete__head">
+      <h2>Paquete Mix</h2>
+      <p class="paquete__precio">$204.00</p>
+    </div>
+    <div class="paquete__foto">
+      <div class="torn torn--top"></div>
+      <img src="assets/buffet-promo.png" alt="Buffet ilimitado $259" />
+      <div class="torn torn--bottom"></div>
+    </div>
+    <ul class="paquete__lista">
+      <li>1 rollo de sushi (10 pzas.)</li>
+      <li>2 pzas. kushiagues de queso · 2 rodajas de plátano</li>
+      <li>2 rollos primavera · arroz yakimeshi · guiso del día</li>
+      <li class="paquete__bonus">Incluye agua del día (500 ml)</li>
+    </ul>
+    <p class="paquete__nota">Relleno y capa externa básicos incluidos. Premium +$10–35.</p>
+  </section>
+
+  <div class="page-break" aria-hidden="true"></div>
+
+  <section class="rollos">
+    <div class="rollos__head">
+      <h2 class="rollos__titulo">Rollos <span>2×$170</span></h2>
+      <p class="rollos__badge">Lleva 2 rollos por $170</p>
+      <p class="rollos__sub">Externo <strong>+$10–30</strong> · Relleno <strong>+$15–35</strong></p>
+    </div>
+    <div id="menu-completo" class="rollos__grid"></div>
+  </section>
+
+  <footer class="menu-doc__footer">
+    Groshi Express Sushi Buffet · Precios sujetos a cambio
+  </footer>
+
+  <script src="js/menu-data.js"></script>
+  <script src="js/menu-pdf.js"></script>
+</body>
+</html>

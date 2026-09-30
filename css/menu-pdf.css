@@ -1,0 +1,329 @@
+/* Menú PDF — 2 hojas, tamaño legible */
+
+:root {
+  --bg-deep: #1a1210;
+  --bg-card: #2a1f1c;
+  --cream: #f5ebe0;
+  --white: #ffffff;
+  --crimson: #c41e3a;
+  --terracotta: #b34639;
+  --gold: #e8b86d;
+  --fuera: #f5a962;
+  --dentro: #7dd3a8;
+  --font-display: "Bebas Neue", sans-serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body.menu-doc {
+  font-family: var(--font-body);
+  font-size: 8pt;
+  line-height: 1.35;
+  color: var(--cream);
+  background: var(--bg-deep);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.menu-doc {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 5mm 6mm 4mm;
+}
+
+/* Header */
+.menu-doc__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3mm;
+  padding-bottom: 3mm;
+  margin-bottom: 3mm;
+  border-bottom: 1px solid rgba(179, 70, 57, 0.45);
+}
+
+.menu-doc__icon { font-size: 16pt; }
+
+.menu-doc__brand {
+  font-family: var(--font-display);
+  font-size: 18pt;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  line-height: 1;
+}
+
+.menu-doc__tagline {
+  font-size: 6pt;
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Paquete Mix — hoja 1 */
+.paquete {
+  background: linear-gradient(145deg, var(--terracotta) 0%, #8b3529 100%);
+  border-radius: 5px;
+  padding: 4mm;
+  margin-bottom: 0;
+  color: var(--white);
+}
+
+.paquete__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 3mm;
+  margin-bottom: 3mm;
+}
+
+.paquete__head h2 {
+  font-family: var(--font-display);
+  font-size: 17pt;
+  letter-spacing: 0.06em;
+}
+
+.paquete__precio {
+  font-family: var(--font-display);
+  font-size: 14pt;
+  color: var(--gold);
+}
+
+.paquete__foto {
+  width: 100%;
+  margin: 0 auto 3mm;
+}
+
+.paquete__foto img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  background: var(--white);
+}
+
+.torn {
+  height: 6px;
+  background: var(--white);
+}
+
+.torn--top {
+  clip-path: polygon(0% 100%, 5% 40%, 12% 90%, 20% 30%, 30% 85%, 40% 20%, 50% 95%, 60% 35%, 70% 80%, 80% 15%, 90% 100%, 100% 50%, 100% 100%);
+}
+
+.torn--bottom {
+  clip-path: polygon(0% 0%, 8% 60%, 18% 10%, 28% 70%, 38% 5%, 48% 80%, 58% 25%, 68% 90%, 78% 15%, 88% 65%, 100% 0%);
+}
+
+.paquete__lista {
+  list-style: none;
+  font-size: 7.5pt;
+  max-width: 92%;
+  margin: 0 auto;
+}
+
+.paquete__lista li {
+  padding: 0.8mm 0;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.15);
+}
+
+.paquete__bonus {
+  color: var(--gold);
+  font-weight: 700;
+  border-bottom: none !important;
+}
+
+.paquete__nota {
+  font-size: 6.5pt;
+  text-align: center;
+  margin-top: 2.5mm;
+  padding: 2mm;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+/* Rollos — hoja 2 */
+.page-break {
+  break-after: page;
+  page-break-after: always;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.rollos {
+  padding-top: 0;
+}
+
+.rollos__head {
+  text-align: center;
+  margin-bottom: 3mm;
+}
+
+.rollos__titulo {
+  font-family: var(--font-display);
+  font-size: 18pt;
+  color: var(--crimson);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.rollos__titulo span { color: var(--white); }
+
+.rollos__badge {
+  display: inline-block;
+  margin-top: 1.5mm;
+  padding: 0.8mm 3.5mm;
+  background: var(--crimson);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 7.5pt;
+  border-radius: 999px;
+}
+
+.rollos__sub {
+  font-size: 7pt;
+  color: rgba(245, 235, 224, 0.65);
+  margin-top: 1.5mm;
+}
+
+.rollos__sub strong { color: var(--fuera); }
+
+.rollos__grid {
+  column-count: 2;
+  column-gap: 4mm;
+}
+
+.menu-cat {
+  break-inside: avoid;
+  margin-bottom: 2.5mm;
+}
+
+.menu-cat__title {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 8.5pt;
+  letter-spacing: 0.06em;
+  background: var(--crimson);
+  color: var(--white);
+  padding: 0.5mm 2.5mm;
+  border-radius: 2px;
+  margin-bottom: 1.2mm;
+}
+
+.menu-cat__list { list-style: none; }
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+  padding: 1.3mm;
+  margin-bottom: 1.3mm;
+  background: var(--bg-card);
+  border: 0.5px solid rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  break-inside: avoid;
+}
+
+.menu-item__foto {
+  flex-shrink: 0;
+  width: 12mm;
+  height: 12mm;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #1a1210;
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-item__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.menu-item__texto {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-item__nombre {
+  display: block;
+  font-weight: 700;
+  font-size: 7.5pt;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 0.4mm;
+}
+
+.menu-item__fuera,
+.menu-item__dentro {
+  display: inline;
+  font-size: 6.5pt;
+  color: rgba(245, 235, 224, 0.75);
+  line-height: 1.25;
+}
+
+.menu-item__fuera b {
+  color: var(--fuera);
+  font-weight: 700;
+}
+
+.menu-item__dentro b {
+  color: var(--dentro);
+  font-weight: 700;
+}
+
+.menu-item__fuera::after {
+  content: " · ";
+  color: rgba(245, 235, 224, 0.3);
+}
+
+.menu-doc__footer {
+  text-align: center;
+  font-size: 6pt;
+  color: rgba(245, 235, 224, 0.4);
+  margin-top: 3mm;
+  padding-top: 2mm;
+  border-top: 0.5px solid rgba(179, 70, 57, 0.3);
+}
+
+@media print {
+  @page { size: A4 portrait; margin: 5mm; }
+
+  body.menu-doc,
+  .paquete,
+  .menu-item,
+  .menu-cat__title,
+  .rollos__badge,
+  .paquete__nota {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .menu-doc {
+    padding: 0;
+    max-width: none;
+  }
+
+  .rollos {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  .page-break {
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .paquete {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .menu-cat,
+  .menu-item {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+}
