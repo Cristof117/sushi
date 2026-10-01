@@ -1,7 +1,7 @@
 function buildCharolas() {
   const gridEl = document.getElementById("charolas-grid");
   const eventosEl = document.getElementById("charolas-eventos");
-  if (!gridEl || !eventosEl) return;
+  if (!gridEl) return;
 
   const lightbox = document.getElementById("foto-lightbox");
   const lightboxImg = lightbox?.querySelector(".foto-lightbox__img");
@@ -49,6 +49,8 @@ function buildCharolas() {
     card.appendChild(list);
     gridEl.appendChild(card);
   });
+
+  if (!eventosEl) return;
 
   CHAROLAS_EVENTOS.forEach((pkg) => {
     const card = document.createElement("article");
