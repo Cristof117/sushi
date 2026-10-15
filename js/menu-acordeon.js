@@ -83,13 +83,7 @@ function buildMenuAcordeon() {
       const abierta = section.classList.contains("carta-cat--open");
       cerrarTodas(null, () => {
         if (abierta) return;
-        section.classList.add("carta-cat--open");
-        toggle.setAttribute("aria-expanded", "true");
-        if (typeof Motion !== "undefined") {
-          Motion.openAccordionPanel(panel);
-        } else {
-          panel.hidden = false;
-        }
+        abrirSeccion(section, toggle, panel);
       });
     });
 
@@ -97,6 +91,37 @@ function buildMenuAcordeon() {
     section.appendChild(panel);
     root.appendChild(section);
   }
+
+  function abrirSeccion(section, toggle, panel) {
+    section.classList.add("carta-cat--open");
+    toggle.setAttribute("aria-expanded", "true");
+    if (typeof Motion !== "undefined") {
+      Motion.openAccordionPanel(panel);
+    } else {
+      panel.hidden = false;
+    }
+  }
+
+  window.abrirCategoriaMenu = function abrirCategoriaMenu(catId) {
+    if (!catId) return;
+    const section = root.querySelector(`.carta-cat[data-cat="${catId}"]`);
+    if (!section) return;
+    const toggle = section.querySelector(".carta-cat__toggle");
+    const panel = section.querySelector(".carta-cat__panel");
+    if (!toggle || !panel) return;
+
+    const yaAbierta = section.classList.contains("carta-cat--open");
+    cerrarTodas(yaAbierta ? section : null, () => {
+      if (yaAbierta) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      abrirSeccion(section, toggle, panel);
+      requestAnimationFrame(() => {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  };
 
   function fillCartaCat(cat, panel) {
     const fotos = fotosDe(cat);

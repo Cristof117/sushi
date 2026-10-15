@@ -103,12 +103,28 @@ const Motion = (() => {
     }, 3200);
   }
 
+  function wireSlideLinks() {
+    getSlides().forEach((slide) => {
+      slide.addEventListener("click", () => {
+        const vista = slide.dataset.vista;
+        const cat = slide.dataset.cat;
+        if (!vista || typeof mostrarVista !== "function") return;
+        stopShowcaseLoop();
+        mostrarVista(vista);
+        if (vista === "menu" && cat && typeof abrirCategoriaMenu === "function") {
+          setTimeout(() => abrirCategoriaMenu(cat), 280);
+        }
+      });
+    });
+  }
+
   function initShowcase() {
     if (showcaseBound) return;
     const stage = document.querySelector(".home-showcase__stage");
     if (!stage) return;
     showcaseBound = true;
     buildDots();
+    wireSlideLinks();
     const slides = getSlides();
     slides.forEach((s, i) => s.classList.toggle("is-active", i === 0));
     showcaseIndex = 0;
@@ -158,28 +174,28 @@ const Motion = (() => {
     if (!lead && !btns.length) return;
 
     const intro = [showcase, lead, ...btns].filter(Boolean);
-    gsap.set(intro, { opacity: 0, y: 28, scale: 0.96 });
+    gsap.set(intro, { opacity: 0, y: 18, scale: 0.98 });
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
     if (showcase) {
-      tl.to(showcase, { opacity: 1, y: 0, scale: 1, duration: 0.6 });
+      tl.to(showcase, { opacity: 1, y: 0, scale: 1, duration: 0.35 }, 0);
       const firstImg = showcase.querySelector(".home-showcase__slide.is-active img");
       if (firstImg) {
         tl.fromTo(
           firstImg,
-          { scale: 1.12 },
-          { scale: 1, duration: 3.5, ease: "power1.out" },
+          { scale: 1.08 },
+          { scale: 1, duration: 2.8, ease: "power1.out" },
           0
         );
       }
     }
     if (lead) {
-      tl.to(lead, { opacity: 1, y: 0, scale: 1, duration: 0.5 }, "-=0.25");
+      tl.to(lead, { opacity: 1, y: 0, scale: 1, duration: 0.3 }, 0.08);
     }
     tl.to(
       btns,
-      { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12 },
-      "-=0.2"
+      { opacity: 1, y: 0, scale: 1, duration: 0.32, stagger: 0.06 },
+      0.12
     );
   }
 
