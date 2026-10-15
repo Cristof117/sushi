@@ -178,4 +178,22 @@ const CARTA = [
       },
     ],
   },
+  {
+    id: "extras",
+    nombre: "Extras",
+    fotos: [
+      "assets/carta/extras-rollitos.jpg",
+      "assets/carta/extras-salsas.jpg",
+    ],
+    items: [
+      { nombre: "Kushiague", precio: "$20.00" },
+      { nombre: "Soya", precio: "$20.00" },
+      { nombre: "Anguila", precio: "$20.00" },
+      { nombre: "Chipotle", precio: "$20.00" },
+      { nombre: "Chiles toreados", precio: "$20.00" },
+      { nombre: "Salsa Tampico", precio: "$20.00" },
+      { nombre: "Jengibre", precio: "$20.00" },
+      { nombre: "Wasabi", precio: "$20.00" },
+    ],
+  },
 ];

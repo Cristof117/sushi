@@ -1,11 +1,8 @@
-const chipsEl = document.getElementById("categoria-chips");
-const menuCompletoEl = document.getElementById("menu-completo");
 const lightbox = document.getElementById("foto-lightbox");
 const lightboxImg = lightbox?.querySelector(".foto-lightbox__img");
 const lightboxCaption = lightbox?.querySelector(".foto-lightbox__caption");
 const lightboxCerrar = lightbox?.querySelector(".foto-lightbox__cerrar");
 
-let categoriaPrioridad = null;
 let tarjetaActiva = null;
 let animTimer = null;
 
@@ -38,57 +35,6 @@ function crearDetalleHTML() {
       </div>
     </div>
   `;
-}
-
-function buildCategorias() {
-  const todos = document.createElement("button");
-  todos.type = "button";
-  todos.className = "chip active";
-  todos.textContent = "Todas";
-  todos.dataset.cat = "";
-  todos.addEventListener("click", () => setPrioridad(null));
-  chipsEl.appendChild(todos);
-
-  MENU.forEach((cat) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "chip";
-    btn.textContent = cat.categoria;
-    btn.dataset.cat = cat.categoria;
-    btn.addEventListener("click", () => setPrioridad(cat.categoria));
-    chipsEl.appendChild(btn);
-  });
-}
-
-function ordenarCategorias(categoria) {
-  const indices = MENU.map((_, i) => i);
-  if (categoria) {
-    const pri = MENU.findIndex((c) => c.categoria === categoria);
-    if (pri >= 0) {
-      const resto = indices.filter((i) => i !== pri);
-      indices.splice(0, indices.length, pri, ...resto);
-    }
-  }
-
-  menuCompletoEl.querySelectorAll(".menu-cat").forEach((b) => {
-    b.classList.remove("menu-cat--prioridad");
-  });
-
-  indices.forEach((i) => {
-    const block = document.getElementById(`cat-${i}`);
-    if (block) menuCompletoEl.appendChild(block);
-    if (categoria && MENU[i].categoria === categoria) {
-      block.classList.add("menu-cat--prioridad");
-    }
-  });
-}
-
-function setPrioridad(categoria) {
-  categoriaPrioridad = categoria;
-  chipsEl.querySelectorAll(".chip").forEach((c) => {
-    c.classList.toggle("active", c.dataset.cat === (categoria || ""));
-  });
-  ordenarCategorias(categoria);
 }
 
 function abrirLightbox(src, nombre) {
@@ -180,10 +126,11 @@ function playIntroAnim(card, item) {
   }, 1800);
 }
 
-function cerrarTodas() {
+function cerrarTodasTarjetas() {
   document.querySelectorAll(".menu-item-card--open").forEach((c) => {
     c.classList.remove("menu-item-card--open", "vista-fuera", "vista-dentro");
-    c.querySelector(".menu-item__detalle").hidden = true;
+    const detalle = c.querySelector(".menu-item__detalle");
+    if (detalle) detalle.hidden = true;
   });
   tarjetaActiva = null;
   if (animTimer) clearTimeout(animTimer);
@@ -194,11 +141,11 @@ function toggleTarjeta(card, item) {
   const yaAbierta = card.classList.contains("menu-item-card--open");
 
   if (tarjetaActiva === card && yaAbierta) {
-    cerrarTodas();
+    cerrarTodasTarjetas();
     return;
   }
 
-  cerrarTodas();
+  cerrarTodasTarjetas();
   tarjetaActiva = card;
   card.classList.add("menu-item-card--open", "vista-fuera");
   detalle.hidden = false;
@@ -215,12 +162,67 @@ function toggleTarjeta(card, item) {
   });
 }
 
-function buildMenuCompleto() {
+function mountRollosMenu({ chipsId, menuId, idPrefix }) {
+  const chipsEl = document.getElementById(chipsId);
+  const menuCompletoEl = document.getElementById(menuId);
+  if (!chipsEl || !menuCompletoEl || typeof MENU === "undefined") return;
+
+  let categoriaPrioridad = null;
+
+  function ordenarCategorias(categoria) {
+    const indices = MENU.map((_, i) => i);
+    if (categoria) {
+      const pri = MENU.findIndex((c) => c.categoria === categoria);
+      if (pri >= 0) {
+        const resto = indices.filter((i) => i !== pri);
+        indices.splice(0, indices.length, pri, ...resto);
+      }
+    }
+
+    menuCompletoEl.querySelectorAll(".menu-cat").forEach((b) => {
+      b.classList.remove("menu-cat--prioridad");
+    });
+
+    indices.forEach((i) => {
+      const block = document.getElementById(`${idPrefix}-cat-${i}`);
+      if (block) menuCompletoEl.appendChild(block);
+      if (categoria && MENU[i].categoria === categoria) {
+        block.classList.add("menu-cat--prioridad");
+      }
+    });
+  }
+
+  function setPrioridad(categoria) {
+    categoriaPrioridad = categoria;
+    chipsEl.querySelectorAll(".chip").forEach((c) => {
+      c.classList.toggle("active", c.dataset.cat === (categoria || ""));
+    });
+    ordenarCategorias(categoria);
+  }
+
+  const todos = document.createElement("button");
+  todos.type = "button";
+  todos.className = "chip active";
+  todos.textContent = "Todas";
+  todos.dataset.cat = "";
+  todos.addEventListener("click", () => setPrioridad(null));
+  chipsEl.appendChild(todos);
+
+  MENU.forEach((cat) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "chip";
+    btn.textContent = cat.categoria;
+    btn.dataset.cat = cat.categoria;
+    btn.addEventListener("click", () => setPrioridad(cat.categoria));
+    chipsEl.appendChild(btn);
+  });
+
   MENU.forEach((cat, catIndex) => {
     const block = document.createElement("section");
     block.className = "menu-cat";
     block.dataset.categoria = cat.categoria;
-    block.id = `cat-${catIndex}`;
+    block.id = `${idPrefix}-cat-${catIndex}`;
 
     const title = document.createElement("h4");
     title.className = "menu-cat__title";
@@ -254,5 +256,14 @@ function buildMenuCompleto() {
   });
 }
 
-buildCategorias();
-buildMenuCompleto();
+mountRollosMenu({
+  chipsId: "categoria-chips",
+  menuId: "menu-completo",
+  idPrefix: "menu",
+});
+
+mountRollosMenu({
+  chipsId: "categoria-chips-buffet",
+  menuId: "menu-completo-buffet",
+  idPrefix: "buffet",
+});

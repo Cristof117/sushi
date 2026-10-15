@@ -13,24 +13,39 @@
   <div class="bg-pattern" aria-hidden="true"></div>
 
   <header class="site-header">
-    <div class="logo">
+    <button type="button" class="logo logo--btn" data-vista="home" aria-label="Ir al inicio">
       <span class="logo-icon" aria-hidden="true">🍜</span>
       <div>
         <span class="logo-main">Groshi Express</span>
         <span class="logo-sub">Sushi Buffet</span>
       </div>
-    </div>
+    </button>
     <nav class="header-nav">
-      <a href="#inicio">Inicio</a>
-      <a href="#carta">A la Carta</a>
-      <a href="#paquetes">Paquetes</a>
-      <a href="#rollos">Rollos</a>
-      <a href="#charolas">Charolas</a>
+      <button type="button" class="header-nav__btn" data-vista="buffet">Buffet</button>
+      <button type="button" class="header-nav__btn" data-vista="menu">Menú</button>
     </nav>
   </header>
 
   <main class="main-flow">
-    <section id="inicio" class="block-inicio">
+    <section id="home" class="vista vista-activa home-gate" data-vista-panel="home">
+      <p class="home-gate__lead">¿Qué quieres ver?</p>
+      <div class="home-gate__actions">
+        <button type="button" class="home-gate__btn home-gate__btn--buffet" data-vista="buffet">
+          <span class="home-gate__btn-title">Buffet</span>
+          <span class="home-gate__btn-sub">Sushi ilimitado</span>
+        </button>
+        <button type="button" class="home-gate__btn home-gate__btn--menu" data-vista="menu">
+          <span class="home-gate__btn-title">Menú</span>
+          <span class="home-gate__btn-sub">Categorías</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="buffet" class="vista block-inicio" data-vista-panel="buffet" hidden>
+      <button type="button" class="vista-volver" data-vista="home">← Volver</button>
+      <header class="buffet-intro">
+        <h2 class="buffet-title">Buffet</h2>
+      </header>
       <img src="assets/buffet-promo.png" alt="Sushi ilimitado $259 — Groshi Express Querétaro" class="inicio-promo-img" />
       <div class="inicio-info">
         <p class="inicio-info__lead">
@@ -52,82 +67,77 @@
         </div>
         <p class="inicio-info__legal">Válido abril 2026. No aplica con otras promociones.</p>
       </div>
-    </section>
 
-    <section id="carta" class="block-carta">
-      <header class="carta-intro">
-        <h2 class="carta-title">A la Carta</h2>
-        <p class="carta-sub">Toca una categoría para ver el menú</p>
-      </header>
-      <div id="carta-acordeon" class="carta-acordeon"></div>
-    </section>
-
-    <section id="paquetes" class="block-paquetes">
-      <header class="paquetes-intro">
-        <h2 class="paquetes-title">Paquetes</h2>
-        <p class="paquetes-sub">Combos de rollos y charolas para eventos</p>
-      </header>
-
-      <h3 class="paquetes-subtitulo">Paquetes Rollos</h3>
-      <div id="paquete" class="block-paquete">
-        <article class="paquete-card">
-          <div class="paquete-card__header">
-            <h2>Paquete Mix</h2>
-            <p class="price-tag">$204.00</p>
-          </div>
-          <div class="torn-frame">
-            <div class="torn-edge torn-edge--top"></div>
-            <img src="assets/paquete-mix.png" alt="Paquete Mix Groshi Express" class="paquete-img" />
-            <div class="torn-edge torn-edge--bottom"></div>
-          </div>
-          <ul class="paquete-list">
-            <li>1 rollo de sushi <strong>(10 pzas.)</strong></li>
-            <li>2 pzas. Kushiagues de queso</li>
-            <li>2 pzas. rodaja de plátano</li>
-            <li>2 rollos primavera</li>
-            <li>Arroz yakimeshi</li>
-            <li>Guiso del día</li>
-            <li class="paquete-list__bonus">Incluye agua del día (500 ml)</li>
-          </ul>
-        </article>
-      </div>
-
-      <div id="paquetes-charolas" class="paquetes-charolas">
-        <h3 class="paquetes-subtitulo">Paquetes Charolas</h3>
-        <p class="paquetes-charolas__lead">Charolas para tus eventos</p>
-        <div id="charolas-eventos" class="charolas-eventos"></div>
+      <div class="buffet-rollos">
+        <header class="rollos-intro">
+          <h2 class="rollos-title">Rollos del buffet</h2>
+          <p class="rollos-promo-badge">Incluidos en el buffet</p>
+        </header>
+        <div class="categoria-picker">
+          <p class="categoria-picker__label">Categoría <span class="opcional">(la elegida se muestra primero)</span></p>
+          <div id="categoria-chips-buffet" class="categoria-chips" role="tablist"></div>
+        </div>
+        <div id="menu-completo-buffet" class="menu-completo"></div>
       </div>
     </section>
 
-    <div class="scroll-hint" aria-hidden="true">
-      <span>↓</span>
-      <p>Rollos 2×$170</p>
-    </div>
-
-    <section id="rollos" class="block-rollos">
-      <header class="rollos-intro">
-        <h2 class="rollos-title">Rollos <span>2×$170</span></h2>
-        <p class="rollos-promo-badge">Lleva 2 rollos por $170</p>
-        <p class="rollos-sub">Externo <strong>+$10–30</strong> · Relleno <strong>+$15–35</strong></p>
+    <section id="menu" class="vista block-menu" data-vista-panel="menu" hidden>
+      <button type="button" class="vista-volver" data-vista="home">← Volver</button>
+      <header class="menu-intro">
+        <h2 class="menu-title">Menú</h2>
+        <p class="menu-sub">Toca una categoría para abrirla</p>
       </header>
-
-      <div class="categoria-picker">
-        <p class="categoria-picker__label">Categoría <span class="opcional">(la elegida se muestra primero)</span></p>
-        <div id="categoria-chips" class="categoria-chips" role="tablist"></div>
-      </div>
-
-      <h3 class="menu-completo__titulo">Menú de rollos</h3>
-      <div id="menu-completo" class="menu-completo"></div>
-    </section>
-
-    <section id="charolas" class="block-charolas">
-      <header class="charolas-intro">
-        <h2 class="charolas-title">Charolas</h2>
-        <p class="charolas-sub">Combos para compartir · precios por charola</p>
-      </header>
-      <div id="charolas-grid" class="charolas-grid"></div>
+      <div id="menu-acordeon" class="carta-acordeon"></div>
     </section>
   </main>
+
+  <template id="tpl-rollos">
+    <header class="rollos-intro">
+      <h2 class="rollos-title">Rollos <span>2×$170</span></h2>
+      <p class="rollos-promo-badge">Lleva 2 rollos por $170</p>
+    </header>
+    <div class="categoria-picker">
+      <p class="categoria-picker__label">Categoría <span class="opcional">(la elegida se muestra primero)</span></p>
+      <div id="categoria-chips" class="categoria-chips" role="tablist"></div>
+    </div>
+    <h3 class="menu-completo__titulo">Menú de rollos</h3>
+    <div id="menu-completo" class="menu-completo"></div>
+  </template>
+
+  <template id="tpl-promociones">
+    <div id="paquete" class="block-paquete">
+      <article class="paquete-card">
+        <div class="paquete-card__header">
+          <h2>Paquete Mix</h2>
+          <p class="price-tag">$204.00</p>
+        </div>
+        <div class="torn-frame">
+          <div class="torn-edge torn-edge--top"></div>
+          <img src="assets/paquete-mix.png" alt="Paquete Mix Groshi Express" class="paquete-img" />
+          <div class="torn-edge torn-edge--bottom"></div>
+        </div>
+        <ul class="paquete-list">
+          <li>1 rollo de sushi <strong>(10 pzas.)</strong></li>
+          <li>2 pzas. Kushiagues de queso</li>
+          <li>2 pzas. rodaja de plátano</li>
+          <li>2 rollos primavera</li>
+          <li>Arroz yakimeshi</li>
+          <li>Guiso del día</li>
+          <li class="paquete-list__bonus">Incluye agua del día (500 ml)</li>
+        </ul>
+      </article>
+    </div>
+  </template>
+
+  <template id="tpl-paquetes-charolas">
+    <p class="charolas-sub paquetes-charolas__lead">Charolas para tus eventos</p>
+    <div id="charolas-eventos" class="charolas-eventos"></div>
+  </template>
+
+  <template id="tpl-charolas">
+    <p class="charolas-sub">Combos para compartir · precios por charola</p>
+    <div id="charolas-grid" class="charolas-grid"></div>
+  </template>
 
   <footer class="site-footer">
     <p>Groshi Express Sushi Buffet · Precios sujetos a cambio</p>
@@ -144,8 +154,9 @@
   <script src="js/menu-data.js"></script>
   <script src="js/carta-data.js"></script>
   <script src="js/charolas-data.js"></script>
+  <script src="js/vistas.js"></script>
+  <script src="js/menu-acordeon.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/carta.js"></script>
   <script src="js/charolas.js"></script>
 </body>
 </html>
