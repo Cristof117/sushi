@@ -2,6 +2,12 @@ function mostrarVista(nombre) {
   const vistas = ["home", "buffet", "menu"];
   if (!vistas.includes(nombre)) return;
 
+  const actual = document.body.dataset.vista;
+  if (actual === nombre) {
+    const panel = document.querySelector(`[data-vista-panel="${nombre}"]`);
+    if (panel && !panel.hidden) return;
+  }
+
   document.querySelectorAll("[data-vista-panel]").forEach((panel) => {
     const activa = panel.dataset.vistaPanel === nombre;
     panel.classList.toggle("vista-activa", activa);
@@ -13,6 +19,15 @@ function mostrarVista(nombre) {
   });
 
   document.body.dataset.vista = nombre;
+
+  const panel = document.querySelector(`[data-vista-panel="${nombre}"]`);
+  if (typeof Motion !== "undefined") {
+    if (nombre === "home") {
+      Motion.animateHome();
+    } else {
+      Motion.animateVistaIn(panel, nombre);
+    }
+  }
 
   if (nombre !== "home") {
     const target = document.getElementById(nombre);
@@ -31,6 +46,10 @@ function initVistas() {
       mostrarVista(vista);
     });
   });
+
+  if (typeof Motion !== "undefined") {
+    Motion.wireHomeHover();
+  }
 
   const hash = (location.hash || "").replace("#", "");
   if (hash === "buffet" || hash === "menu") {

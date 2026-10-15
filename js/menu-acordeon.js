@@ -17,14 +17,34 @@ function buildMenuAcordeon() {
     lightboxCerrar?.focus();
   }
 
-  function cerrarTodas(excepto) {
-    root.querySelectorAll(".carta-cat").forEach((cat) => {
-      if (cat === excepto) return;
+  function cerrarTodas(excepto, onDone) {
+    const abiertos = [...root.querySelectorAll(".carta-cat.carta-cat--open")].filter(
+      (cat) => cat !== excepto
+    );
+
+    if (!abiertos.length) {
+      onDone?.();
+      return;
+    }
+
+    let pendientes = abiertos.length;
+    abiertos.forEach((cat) => {
       cat.classList.remove("carta-cat--open");
       const btn = cat.querySelector(".carta-cat__toggle");
       const panel = cat.querySelector(".carta-cat__panel");
       if (btn) btn.setAttribute("aria-expanded", "false");
-      if (panel) panel.hidden = true;
+      const fin = () => {
+        pendientes -= 1;
+        if (pendientes <= 0) onDone?.();
+      };
+      if (panel && typeof Motion !== "undefined") {
+        Motion.closeAccordionPanel(panel, fin);
+      } else if (panel) {
+        panel.hidden = true;
+        fin();
+      } else {
+        fin();
+      }
     });
   }
 
@@ -61,12 +81,16 @@ function buildMenuAcordeon() {
 
     toggle.addEventListener("click", () => {
       const abierta = section.classList.contains("carta-cat--open");
-      cerrarTodas();
-      if (!abierta) {
+      cerrarTodas(null, () => {
+        if (abierta) return;
         section.classList.add("carta-cat--open");
         toggle.setAttribute("aria-expanded", "true");
-        panel.hidden = false;
-      }
+        if (typeof Motion !== "undefined") {
+          Motion.openAccordionPanel(panel);
+        } else {
+          panel.hidden = false;
+        }
+      });
     });
 
     section.appendChild(toggle);
