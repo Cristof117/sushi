@@ -6,6 +6,10 @@ const Motion = (() => {
 
   const hasGsap = () => typeof gsap !== "undefined";
 
+  let showcaseTimer = null;
+  let showcaseIndex = 0;
+  let showcaseBound = false;
+
   function ready(fn) {
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", fn, { once: true });
@@ -14,34 +18,184 @@ const Motion = (() => {
     }
   }
 
+  function getSlides() {
+    return [...document.querySelectorAll(".home-showcase__slide[data-slide]")];
+  }
+
+  function buildDots() {
+    const dotsRoot = document.querySelector("[data-showcase-dots]");
+    const slides = getSlides();
+    if (!dotsRoot || !slides.length) return;
+    dotsRoot.innerHTML = "";
+    slides.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "home-showcase__dot" + (i === 0 ? " is-active" : "");
+      dot.setAttribute("aria-label", `Foto ${i + 1}`);
+      dot.addEventListener("click", () => goToSlide(i, true));
+      dotsRoot.appendChild(dot);
+    });
+  }
+
+  function syncDots(index) {
+    document.querySelectorAll(".home-showcase__dot").forEach((dot, i) => {
+      dot.classList.toggle("is-active", i === index);
+    });
+  }
+
+  function goToSlide(nextIndex, userTriggered) {
+    const slides = getSlides();
+    if (!slides.length) return;
+
+    const next = ((nextIndex % slides.length) + slides.length) % slides.length;
+    if (next === showcaseIndex && slides[next].classList.contains("is-active")) {
+      if (userTriggered) restartShowcaseLoop();
+      return;
+    }
+
+    const current = slides[showcaseIndex];
+    const incoming = slides[next];
+
+    if (reduced || !hasGsap()) {
+      slides.forEach((s, i) => s.classList.toggle("is-active", i === next));
+      showcaseIndex = next;
+      syncDots(next);
+      if (userTriggered) restartShowcaseLoop();
+      return;
+    }
+
+    gsap.killTweensOf(slides);
+    gsap.set(incoming, { opacity: 0, visibility: "visible", zIndex: 2 });
+    gsap.set(current, { zIndex: 1 });
+
+    const img = incoming.querySelector("img");
+    if (img) gsap.set(img, { scale: 1.1 });
+
+    gsap
+      .timeline({
+        onComplete: () => {
+          slides.forEach((s, i) => s.classList.toggle("is-active", i === next));
+          gsap.set(slides, { clearProps: "zIndex" });
+          showcaseIndex = next;
+          syncDots(next);
+        },
+      })
+      .to(current, { opacity: 0, duration: 0.55, ease: "power2.inOut" }, 0)
+      .to(incoming, { opacity: 1, duration: 0.55, ease: "power2.inOut" }, 0)
+      .to(img, { scale: 1, duration: 3.8, ease: "power1.out" }, 0);
+
+    if (userTriggered) restartShowcaseLoop();
+  }
+
+  function stopShowcaseLoop() {
+    if (showcaseTimer) {
+      clearInterval(showcaseTimer);
+      showcaseTimer = null;
+    }
+  }
+
+  function restartShowcaseLoop() {
+    stopShowcaseLoop();
+    if (reduced) return;
+    showcaseTimer = setInterval(() => {
+      if (document.body.dataset.vista !== "home") return;
+      goToSlide(showcaseIndex + 1, false);
+    }, 3200);
+  }
+
+  function initShowcase() {
+    if (showcaseBound) return;
+    const stage = document.querySelector(".home-showcase__stage");
+    if (!stage) return;
+    showcaseBound = true;
+    buildDots();
+    const slides = getSlides();
+    slides.forEach((s, i) => s.classList.toggle("is-active", i === 0));
+    showcaseIndex = 0;
+    syncDots(0);
+    restartShowcaseLoop();
+  }
+
+  function animateShowcaseIntro() {
+    const showcase = document.querySelector(".home-showcase");
+    if (!showcase) return;
+    if (reduced || !hasGsap()) {
+      initShowcase();
+      return;
+    }
+
+    gsap.fromTo(
+      showcase,
+      { opacity: 0, y: 24, scale: 0.97 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.65,
+        ease: "power3.out",
+        onComplete: initShowcase,
+      }
+    );
+
+    const firstImg = showcase.querySelector(".home-showcase__slide.is-active img");
+    if (firstImg) {
+      gsap.fromTo(
+        firstImg,
+        { scale: 1.12 },
+        { scale: 1, duration: 4, ease: "power1.out" }
+      );
+    }
+  }
+
   function animateHome() {
+    initShowcase();
+    restartShowcaseLoop();
+
     if (reduced || !hasGsap()) return;
+    const showcase = document.querySelector(".home-showcase");
     const lead = document.querySelector(".home-gate__lead");
     const btns = document.querySelectorAll(".home-gate__btn");
     if (!lead && !btns.length) return;
 
-    gsap.set([lead, ...btns].filter(Boolean), { opacity: 0, y: 28, scale: 0.96 });
+    const intro = [showcase, lead, ...btns].filter(Boolean);
+    gsap.set(intro, { opacity: 0, y: 28, scale: 0.96 });
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    if (showcase) {
+      tl.to(showcase, { opacity: 1, y: 0, scale: 1, duration: 0.6 });
+      const firstImg = showcase.querySelector(".home-showcase__slide.is-active img");
+      if (firstImg) {
+        tl.fromTo(
+          firstImg,
+          { scale: 1.12 },
+          { scale: 1, duration: 3.5, ease: "power1.out" },
+          0
+        );
+      }
+    }
     if (lead) {
-      tl.to(lead, { opacity: 1, y: 0, scale: 1, duration: 0.55 });
+      tl.to(lead, { opacity: 1, y: 0, scale: 1, duration: 0.5 }, "-=0.25");
     }
     tl.to(
       btns,
       { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12 },
-      "-=0.25"
+      "-=0.2"
     );
   }
 
   function animateVistaIn(panel, nombre) {
     if (!panel) return;
+
+    if (nombre === "home") {
+      animateHome();
+      return;
+    }
+
+    stopShowcaseLoop();
     if (reduced || !hasGsap()) return;
 
     const targets = [];
-    if (nombre === "home") {
-      targets.push(
-        ...panel.querySelectorAll(".home-gate__lead, .home-gate__btn")
-      );
-    } else if (nombre === "buffet") {
+    if (nombre === "buffet") {
       targets.push(
         ...panel.querySelectorAll(
           ".vista-volver, .buffet-intro, .inicio-promo-img, .inicio-info__lead, .inicio-info__lista li, .inicio-info__contacto, .inicio-info__legal, .buffet-rollos .rollos-intro, .buffet-rollos .chip, .buffet-rollos .menu-item, .buffet-rollos .menu-cat"
@@ -185,8 +339,10 @@ const Motion = (() => {
     ready,
     animateHome,
     animateVistaIn,
+    animateShowcaseIntro,
     openAccordionPanel,
     closeAccordionPanel,
     wireHomeHover,
+    stopShowcaseLoop,
   };
 })();

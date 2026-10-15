@@ -28,7 +28,36 @@
 
   <main class="main-flow">
     <section id="home" class="vista vista-activa home-gate" data-vista-panel="home">
-      <p class="home-gate__lead">¿Qué quieres ver?</p>
+      <div class="home-showcase" aria-hidden="true">
+        <div class="home-showcase__stage">
+          <figure class="home-showcase__slide is-active" data-slide>
+            <img src="assets/buffet-promo.png" alt="" />
+            <figcaption>Buffet ilimitado</figcaption>
+          </figure>
+          <figure class="home-showcase__slide" data-slide>
+            <img src="assets/carta/entradas.jpg" alt="" />
+            <figcaption>Entradas</figcaption>
+          </figure>
+          <figure class="home-showcase__slide" data-slide>
+            <img src="assets/carta/niguiris.jpg" alt="" />
+            <figcaption>Niguiris</figcaption>
+          </figure>
+          <figure class="home-showcase__slide" data-slide>
+            <img src="assets/carta/especialidades.jpg" alt="" />
+            <figcaption>Especialidades</figcaption>
+          </figure>
+          <figure class="home-showcase__slide" data-slide>
+            <img src="assets/carta/teppanyaki.jpg" alt="" />
+            <figcaption>Teppanyaki</figcaption>
+          </figure>
+          <figure class="home-showcase__slide" data-slide>
+            <img src="assets/carta/arroz.jpg" alt="" />
+            <figcaption>Arroz</figcaption>
+          </figure>
+        </div>
+        <div class="home-showcase__dots" data-showcase-dots></div>
+      </div>
+      <p class="home-gate__lead">¿Qué vas a ordenar hoy?</p>
       <div class="home-gate__actions">
         <button type="button" class="home-gate__btn home-gate__btn--buffet" data-vista="buffet">
           <span class="home-gate__btn-title">Buffet</span>
