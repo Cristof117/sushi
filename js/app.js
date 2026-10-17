@@ -239,8 +239,15 @@ function mountRollosMenu({ chipsId, menuId, idPrefix }) {
       const head = document.createElement("button");
       head.type = "button";
       head.className = "menu-item__head";
+      const precioHtml =
+        typeof item.precio === "number"
+          ? `<span class="menu-item__precio">$${item.precio}</span>`
+          : "";
       head.innerHTML = `
-        <span class="menu-item__nombre">${item.nombre}</span>
+        <span class="menu-item__top">
+          <span class="menu-item__nombre">${item.nombre}</span>
+          ${precioHtml}
+        </span>
         <span class="menu-item__fuera"><b>Fuera:</b> ${item.fuera}</span>
         <span class="menu-item__dentro"><b>Dentro:</b> ${item.dentro}</span>
       `;

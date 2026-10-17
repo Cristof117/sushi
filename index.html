@@ -97,6 +97,17 @@
         <p class="inicio-info__legal">Válido abril 2026. No aplica con otras promociones.</p>
       </div>
 
+      <aside class="buffet-leyenda" aria-label="Avisos del buffet">
+        <p>
+          Para conservar precio y calidad, favor de pedir lo que va a consumir;
+          si deja producto, se cobrará extra. Por su comprensión, gracias.
+        </p>
+        <p>
+          Los productos que indiquen “ahumado”, como el salmón o atún, no son
+          totalmente cocidos. Consumir bajo su responsabilidad. Gracias.
+        </p>
+      </aside>
+
       <div class="buffet-rollos">
         <header class="rollos-intro">
           <h2 class="rollos-title">Rollos del buffet</h2>
@@ -122,8 +133,7 @@
 
   <template id="tpl-rollos">
     <header class="rollos-intro">
-      <h2 class="rollos-title">Rollos <span>2×$170</span></h2>
-      <p class="rollos-promo-badge">Lleva 2 rollos por $170</p>
+      <h2 class="rollos-title">Rollos</h2>
     </header>
     <div class="categoria-picker">
       <p class="categoria-picker__label">Categoría <span class="opcional">(la elegida se muestra primero)</span></p>
@@ -134,27 +144,37 @@
   </template>
 
   <template id="tpl-promociones">
-    <div id="paquete" class="block-paquete">
-      <article class="paquete-card">
-        <div class="paquete-card__header">
-          <h2>Paquete Mix</h2>
-          <p class="price-tag">$204.00</p>
-        </div>
-        <div class="torn-frame">
-          <div class="torn-edge torn-edge--top"></div>
-          <img src="assets/paquete-mix.png" alt="Paquete Mix Groshi Express" class="paquete-img" />
-          <div class="torn-edge torn-edge--bottom"></div>
-        </div>
-        <ul class="paquete-list">
-          <li>1 rollo de sushi <strong>(10 pzas.)</strong></li>
-          <li>2 pzas. Kushiagues de queso</li>
-          <li>2 pzas. rodaja de plátano</li>
-          <li>2 rollos primavera</li>
-          <li>Arroz yakimeshi</li>
-          <li>Guiso del día</li>
-          <li class="paquete-list__bonus">Incluye agua del día (500 ml)</li>
-        </ul>
+    <div class="block-promociones">
+      <article class="promo-card">
+        <img
+          src="assets/promocion-rollos-2x170.png"
+          alt="Rollos 2×$170 — Lleva 2 rollos por $170"
+          class="promo-card__img"
+        />
       </article>
+
+      <div id="paquete" class="block-paquete">
+        <article class="paquete-card">
+          <div class="paquete-card__header">
+            <h2>Paquete Mix</h2>
+            <p class="price-tag">$204.00</p>
+          </div>
+          <div class="torn-frame">
+            <div class="torn-edge torn-edge--top"></div>
+            <img src="assets/paquete-mix.png" alt="Paquete Mix Groshi Express" class="paquete-img" />
+            <div class="torn-edge torn-edge--bottom"></div>
+          </div>
+          <ul class="paquete-list">
+            <li>1 rollo de sushi <strong>(10 pzas.)</strong></li>
+            <li>2 pzas. Kushiagues de queso</li>
+            <li>2 pzas. rodaja de plátano</li>
+            <li>2 rollos primavera</li>
+            <li>Arroz yakimeshi</li>
+            <li>Guiso del día</li>
+            <li class="paquete-list__bonus">Incluye agua del día (500 ml)</li>
+          </ul>
+        </article>
+      </div>
     </div>
   </template>
 
