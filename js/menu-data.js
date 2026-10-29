@@ -3,7 +3,7 @@ const MENU = [
     { nombre: "California Roll", fuera: "Ajonjolí", dentro: "Aguacate, pepino y camarón", precio: 105 },
     { nombre: "Leyenda Roll", fuera: "Plátano frito", dentro: "Aguacate, camarón y queso crema", precio: 125 },
     { nombre: "Chilly Roll", fuera: "Aguacate", dentro: "Queso manchego, chiles toreados y camarón", precio: 125 },
-    { nombre: "California Especial", fuera: "Masago y ajonjolí", dentro: "Aguacate, pepino y camarón" },
+    { nombre: "California Especial", fuera: "Masago y ajonjolí", dentro: "Aguacate, pepino y camarón", precio: 115 },
     { nombre: "Pinta Roll", fuera: "Queso crema y tampico", dentro: "Aguacate y camarón empanizado", precio: 120 },
   ]},
   { categoria: "Surimi", tipo: "surimi", items: [

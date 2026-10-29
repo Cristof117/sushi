@@ -2,7 +2,10 @@ const CARTA = [
   {
     id: "entradas",
     nombre: "Entradas",
-    foto: "assets/carta/entradas.jpg",
+    fotos: [
+      "assets/carta/entradas.png",
+      "assets/carta/extras-rollitos.jpg",
+    ],
     items: [
       {
         nombre: "Kushiagues de Queso Gouda",
@@ -44,7 +47,7 @@ const CARTA = [
   {
     id: "niguiris",
     nombre: "Niguiris",
-    foto: "assets/carta/niguiris.jpg",
+    foto: "assets/carta/niguiris.png",
     items: [
       {
         nombre: "Niguiris de cangrejo",
@@ -66,7 +69,7 @@ const CARTA = [
   {
     id: "arroz",
     nombre: "Arroz",
-    foto: "assets/carta/arroz.jpg",
+    foto: "assets/carta/arroz.png",
     items: [
       {
         nombre: "Gohan",
@@ -115,7 +118,7 @@ const CARTA = [
   {
     id: "teppanyaki",
     nombre: "Teppanyaki",
-    foto: "assets/carta/teppanyaki.jpg",
+    foto: "assets/carta/teppanyaki.png",
     items: [
       {
         nombre: "Teppanyaki de verduras",
@@ -149,7 +152,7 @@ const CARTA = [
   {
     id: "especialidades",
     nombre: "Especialidades",
-    foto: "assets/carta/especialidades.jpg",
+    foto: "assets/carta/especialidades.png",
     nota: "Todas nuestras especialidades son preparadas al momento; el tiempo de espera puede variar de 20 a 30 min.",
     items: [
       {

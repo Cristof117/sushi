@@ -274,3 +274,15 @@ mountRollosMenu({
   menuId: "menu-completo-buffet",
   idPrefix: "buffet",
 });
+
+mountRollosMenu({
+  chipsId: "categoria-chips-promo",
+  menuId: "menu-completo-promo",
+  idPrefix: "promo-vista",
+});
+
+mountRollosMenu({
+  chipsId: "categoria-chips-promo-menu",
+  menuId: "menu-completo-promo-menu",
+  idPrefix: "promo-menu",
+});

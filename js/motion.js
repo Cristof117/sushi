@@ -221,6 +221,12 @@ const Motion = (() => {
       targets.push(
         ...panel.querySelectorAll(".vista-volver, .menu-intro, .carta-cat")
       );
+    } else if (nombre === "promociones") {
+      targets.push(
+        ...panel.querySelectorAll(
+          ".vista-volver, .promociones-intro, .promo-card, .promo-rollos, .paquete-card"
+        )
+      );
     }
 
     if (!targets.length) {
@@ -326,6 +332,40 @@ const Motion = (() => {
     });
   }
 
+  function startFotoCarrusel(stage) {
+    const slides = [...stage.querySelectorAll(".carta-cat__foto")];
+    if (slides.length < 2 || reduced) return;
+    let index = 0;
+
+    const show = (next) => {
+      const current = slides[index];
+      const incoming = slides[next];
+      if (!hasGsap()) {
+        slides.forEach((slide, i) => slide.classList.toggle("is-active", i === next));
+        index = next;
+        return;
+      }
+      gsap.killTweensOf([current, incoming]);
+      gsap.set(incoming, { opacity: 0, visibility: "visible", zIndex: 2 });
+      gsap.set(current, { zIndex: 1 });
+      gsap
+        .timeline({
+          onComplete: () => {
+            slides.forEach((slide, i) => slide.classList.toggle("is-active", i === next));
+            gsap.set(slides, { clearProps: "zIndex" });
+            index = next;
+          },
+        })
+        .to(current, { opacity: 0, duration: 0.55, ease: "power2.inOut" }, 0)
+        .to(incoming, { opacity: 1, duration: 0.55, ease: "power2.inOut" }, 0);
+    };
+
+    setInterval(() => {
+      if (stage.closest("[hidden]")) return;
+      show((index + 1) % slides.length);
+    }, 3200);
+  }
+
   function wireHomeHover() {
     if (reduced || !hasGsap()) return;
     document.querySelectorAll(".home-gate__btn").forEach((btn) => {
@@ -358,6 +398,7 @@ const Motion = (() => {
     animateShowcaseIntro,
     openAccordionPanel,
     closeAccordionPanel,
+    startFotoCarrusel,
     wireHomeHover,
     stopShowcaseLoop,
   };

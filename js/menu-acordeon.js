@@ -125,22 +125,37 @@ function buildMenuAcordeon() {
 
   function fillCartaCat(cat, panel) {
     const fotos = fotosDe(cat);
-    if (fotos.length) {
-      const gallery = document.createElement("div");
-      gallery.className = "carta-cat__fotos";
+    if (fotos.length > 1) {
+      const stage = document.createElement("div");
+      stage.className = "carta-cat__carrusel";
       fotos.forEach((src, i) => {
         const fotoBtn = document.createElement("button");
         fotoBtn.type = "button";
-        fotoBtn.className = "carta-cat__foto";
+        fotoBtn.className = "carta-cat__foto" + (i === 0 ? " is-active" : "");
         fotoBtn.setAttribute("aria-label", `Ver foto de ${cat.nombre}`);
-        fotoBtn.innerHTML = `<img src="${src}" alt="${cat.nombre}" loading="lazy" />`;
+        fotoBtn.innerHTML = `<img src="${src}" alt="${cat.nombre}" />`;
         fotoBtn.addEventListener("click", (e) => {
           e.stopPropagation();
-          abrirFoto(src, `${cat.nombre}${fotos.length > 1 ? ` (${i + 1})` : ""}`);
+          const visible = stage.querySelector(".carta-cat__foto.is-active img");
+          abrirFoto(visible?.getAttribute("src") || src, cat.nombre);
         });
-        gallery.appendChild(fotoBtn);
+        stage.appendChild(fotoBtn);
       });
-      panel.appendChild(gallery);
+      panel.appendChild(stage);
+      if (typeof Motion !== "undefined" && Motion.startFotoCarrusel) {
+        Motion.startFotoCarrusel(stage);
+      }
+    } else if (fotos.length === 1) {
+      const fotoBtn = document.createElement("button");
+      fotoBtn.type = "button";
+      fotoBtn.className = "carta-cat__foto";
+      fotoBtn.setAttribute("aria-label", `Ver foto de ${cat.nombre}`);
+      fotoBtn.innerHTML = `<img src="${fotos[0]}" alt="${cat.nombre}" loading="lazy" />`;
+      fotoBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        abrirFoto(fotos[0], cat.nombre);
+      });
+      panel.appendChild(fotoBtn);
     }
 
     const list = document.createElement("ul");

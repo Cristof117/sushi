@@ -1,5 +1,5 @@
 function mostrarVista(nombre) {
-  const vistas = ["home", "buffet", "menu"];
+  const vistas = ["home", "buffet", "menu", "promociones"];
   if (!vistas.includes(nombre)) return;
 
   const actual = document.body.dataset.vista;
@@ -52,7 +52,7 @@ function initVistas() {
   }
 
   const hash = (location.hash || "").replace("#", "");
-  if (hash === "buffet" || hash === "menu") {
+  if (hash === "buffet" || hash === "menu" || hash === "promociones") {
     mostrarVista(hash);
   } else {
     mostrarVista("home");

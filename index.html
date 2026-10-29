@@ -14,7 +14,7 @@
 
   <header class="site-header">
     <button type="button" class="logo logo--btn" data-vista="home" aria-label="Ir al inicio">
-      <span class="logo-icon" aria-hidden="true">🍜</span>
+      <img class="logo-icon" src="assets/logo-groshi.png" alt="" />
       <div>
         <span class="logo-main">Groshi Express</span>
         <span class="logo-sub">Sushi Buffet</span>
@@ -23,6 +23,7 @@
     <nav class="header-nav">
       <button type="button" class="header-nav__btn" data-vista="buffet">Buffet</button>
       <button type="button" class="header-nav__btn" data-vista="menu">Menú</button>
+      <button type="button" class="header-nav__btn" data-vista="promociones">Promociones</button>
     </nav>
   </header>
 
@@ -35,23 +36,23 @@
             <span class="home-showcase__caption">Buffet ilimitado</span>
           </button>
           <button type="button" class="home-showcase__slide" data-slide data-vista="menu" data-cat="entradas" aria-label="Ir a Entradas">
-            <img src="assets/carta/entradas.jpg" alt="" />
+            <img src="assets/carta/entradas.png" alt="" />
             <span class="home-showcase__caption">Entradas</span>
           </button>
           <button type="button" class="home-showcase__slide" data-slide data-vista="menu" data-cat="niguiris" aria-label="Ir a Niguiris">
-            <img src="assets/carta/niguiris.jpg" alt="" />
+            <img src="assets/carta/niguiris.png" alt="" />
             <span class="home-showcase__caption">Niguiris</span>
           </button>
           <button type="button" class="home-showcase__slide" data-slide data-vista="menu" data-cat="especialidades" aria-label="Ir a Especialidades">
-            <img src="assets/carta/especialidades.jpg" alt="" />
+            <img src="assets/carta/especialidades.png" alt="" />
             <span class="home-showcase__caption">Especialidades</span>
           </button>
           <button type="button" class="home-showcase__slide" data-slide data-vista="menu" data-cat="teppanyaki" aria-label="Ir a Teppanyaki">
-            <img src="assets/carta/teppanyaki.jpg" alt="" />
+            <img src="assets/carta/teppanyaki.png" alt="" />
             <span class="home-showcase__caption">Teppanyaki</span>
           </button>
           <button type="button" class="home-showcase__slide" data-slide data-vista="menu" data-cat="arroz" aria-label="Ir a Arroz">
-            <img src="assets/carta/arroz.jpg" alt="" />
+            <img src="assets/carta/arroz.png" alt="" />
             <span class="home-showcase__caption">Arroz</span>
           </button>
         </div>
@@ -66,6 +67,10 @@
         <button type="button" class="home-gate__btn home-gate__btn--menu" data-vista="menu">
           <span class="home-gate__btn-title">Menú</span>
           <span class="home-gate__btn-sub">Categorías</span>
+        </button>
+        <button type="button" class="home-gate__btn home-gate__btn--promos" data-vista="promociones">
+          <span class="home-gate__btn-title">Promociones</span>
+          <span class="home-gate__btn-sub">Paquetes y ofertas</span>
         </button>
       </div>
     </section>
@@ -129,6 +134,53 @@
       </header>
       <div id="menu-acordeon" class="carta-acordeon"></div>
     </section>
+
+    <section id="promociones" class="vista block-promociones-vista" data-vista-panel="promociones" hidden>
+      <button type="button" class="vista-volver" data-vista="home">← Volver</button>
+      <header class="promociones-intro">
+        <h2 class="promociones-title">Promociones</h2>
+        <p class="promociones-sub">Paquetes y ofertas</p>
+      </header>
+      <div class="block-promociones">
+        <article class="promo-card">
+          <img
+            src="assets/promocion-rollos-2x170.png"
+            alt="Rollos 2×$170 — Lleva 2 rollos por $170"
+            class="promo-card__img"
+          />
+        </article>
+        <div class="promo-rollos">
+          <h3 class="menu-completo__titulo">Rollos</h3>
+          <div class="categoria-picker">
+            <p class="categoria-picker__label">Categoría <span class="opcional">(la elegida se muestra primero)</span></p>
+            <div id="categoria-chips-promo" class="categoria-chips" role="tablist"></div>
+          </div>
+          <div id="menu-completo-promo" class="menu-completo"></div>
+        </div>
+        <div class="block-paquete">
+          <article class="paquete-card">
+            <div class="paquete-card__header">
+              <h2>Paquete Mix</h2>
+              <p class="price-tag">$204.00</p>
+            </div>
+            <div class="torn-frame">
+              <div class="torn-edge torn-edge--top"></div>
+              <img src="assets/paquete-mix.png" alt="Paquete Mix Groshi Express" class="paquete-img" />
+              <div class="torn-edge torn-edge--bottom"></div>
+            </div>
+            <ul class="paquete-list">
+              <li>1 rollo de sushi <strong>(10 pzas.)</strong></li>
+              <li>2 pzas. Kushiagues de queso</li>
+              <li>2 pzas. rodaja de plátano</li>
+              <li>2 rollos primavera</li>
+              <li>Arroz yakimeshi</li>
+              <li>Guiso del día</li>
+              <li class="paquete-list__bonus">Incluye agua del día (500 ml)</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
   </main>
 
   <template id="tpl-rollos">
@@ -152,6 +204,14 @@
           class="promo-card__img"
         />
       </article>
+      <div class="promo-rollos">
+        <h3 class="menu-completo__titulo">Rollos</h3>
+        <div class="categoria-picker">
+          <p class="categoria-picker__label">Categoría <span class="opcional">(la elegida se muestra primero)</span></p>
+          <div id="categoria-chips-promo-menu" class="categoria-chips" role="tablist"></div>
+        </div>
+        <div id="menu-completo-promo-menu" class="menu-completo"></div>
+      </div>
 
       <div id="paquete" class="block-paquete">
         <article class="paquete-card">
