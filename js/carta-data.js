@@ -8,6 +8,11 @@ const CARTA = [
     ],
     items: [
       {
+        nombre: "Rollito primavera",
+        precio: "$120.00",
+        detalle: "4 piezas · $30.00 pza",
+      },
+      {
         nombre: "Kushiagues de Queso Gouda",
         precio: "$120.00",
         detalle: "4 piezas · $30.00 pza",
