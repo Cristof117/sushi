@@ -150,12 +150,17 @@
           />
         </article>
         <div class="promo-rollos">
-          <h3 class="menu-completo__titulo">Rollos</h3>
-          <div class="categoria-picker">
-            <p class="categoria-picker__label">Categoría <span class="opcional">(la elegida se muestra primero)</span></p>
-            <div id="categoria-chips-promo" class="categoria-chips" role="tablist"></div>
+          <button type="button" class="promo-rollos__toggle" aria-expanded="false" aria-controls="promo-rollos-panel">
+            <span class="promo-rollos__titulo">Rollos</span>
+            <span class="carta-cat__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div id="promo-rollos-panel" class="promo-rollos__panel" hidden>
+            <div class="categoria-picker">
+              <p class="categoria-picker__label">Categoría <span class="opcional">(la elegida se muestra primero)</span></p>
+              <div id="categoria-chips-promo" class="categoria-chips" role="tablist"></div>
+            </div>
+            <div id="menu-completo-promo" class="menu-completo"></div>
           </div>
-          <div id="menu-completo-promo" class="menu-completo"></div>
         </div>
         <div class="block-paquete">
           <article class="paquete-card">

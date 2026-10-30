@@ -1329,6 +1329,40 @@ body.lightbox-abierto { overflow: hidden; }
 
 .promo-rollos {
   margin-top: 0.25rem;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.promo-rollos__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--cream);
+  cursor: pointer;
+  text-align: left;
+}
+
+.promo-rollos__titulo {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+
+.promo-rollos__panel {
+  padding: 0 0.85rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.promo-rollos__toggle[aria-expanded="true"] .carta-cat__chevron {
+  transform: rotate(180deg);
 }
 
 .promociones-intro {

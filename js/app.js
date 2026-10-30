@@ -281,8 +281,25 @@ mountRollosMenu({
   idPrefix: "promo-vista",
 });
 
-mountRollosMenu({
-  chipsId: "categoria-chips-promo-menu",
-  menuId: "menu-completo-promo-menu",
-  idPrefix: "promo-menu",
+document.querySelectorAll(".promo-rollos__toggle").forEach((toggle) => {
+  const panel = document.getElementById(toggle.getAttribute("aria-controls"));
+  if (!panel) return;
+  toggle.addEventListener("click", () => {
+    const abierta = toggle.getAttribute("aria-expanded") === "true";
+    if (abierta) {
+      toggle.setAttribute("aria-expanded", "false");
+      if (typeof Motion !== "undefined") {
+        Motion.closeAccordionPanel(panel);
+      } else {
+        panel.hidden = true;
+      }
+      return;
+    }
+    toggle.setAttribute("aria-expanded", "true");
+    if (typeof Motion !== "undefined") {
+      Motion.openAccordionPanel(panel);
+    } else {
+      panel.hidden = false;
+    }
+  });
 });

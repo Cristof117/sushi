@@ -4,7 +4,7 @@ const CARTA = [
     nombre: "Entradas",
     fotos: [
       "assets/carta/entradas.png",
-      "assets/carta/extras-rollitos.jpg",
+      "assets/carta/extras-rollitos.png",
     ],
     items: [
       {
@@ -184,10 +184,7 @@ const CARTA = [
   {
     id: "extras",
     nombre: "Extras",
-    fotos: [
-      "assets/carta/extras-rollitos.jpg",
-      "assets/carta/extras-salsas.jpg",
-    ],
+    foto: "assets/carta/extras-salsas.png",
     items: [
       { nombre: "Kushiague", precio: "$20.00" },
       { nombre: "Soya", precio: "$20.00" },

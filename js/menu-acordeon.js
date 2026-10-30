@@ -196,7 +196,6 @@ function buildMenuAcordeon() {
   });
 
   crearPanel("rollos", "Rollos", (panel) => fillFromTemplate("tpl-rollos", panel));
-  crearPanel("promociones", "Promociones", (panel) => fillFromTemplate("tpl-promociones", panel));
   crearPanel("paquetes-charolas", "Paquetes Charolas", (panel) => fillFromTemplate("tpl-paquetes-charolas", panel));
   crearPanel("charolas", "Charolas", (panel) => fillFromTemplate("tpl-charolas", panel));
 
